@@ -349,12 +349,10 @@ var update = function() {
 	}
 }
 
+// https://jsfiddle.net/002v98LL/
 // Returns a single rgb color interpolation between given rgb color
 // based on the factor given; via https://codepen.io/njmcode/pen/axoyD?editors=0010
 function interpolateColor(color1, color2, factor) {
-    if (arguments.length < 3) { 
-        factor = 0.5; 
-    }
     var result = color1.slice();
     for (var i = 0; i < 3; i++) {
         result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
@@ -364,24 +362,23 @@ function interpolateColor(color1, color2, factor) {
 // My function to interpolate between two colors completely, returning an array
 function interpolateColors(color1, color2, steps) {
 	color1 = color1.match(/\d+/g).map(Number);
-    color2 = color2.match(/\d+/g).map(Number);
+	color2 = color2.match(/\d+/g).map(Number);
 	if (steps === 1) {
 		return [`rgb(${color1[0]}, ${color1[1]}, ${color1[2]})`];
 	}
-	
-    var stepFactor = 1 / (steps - 1),
-        interpolatedColorArray = [];
-		
-    for(var i = 0; i < steps; i++) {
-        interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
-    }
-	
+
+	var stepFactor = 1 / (steps - 1), interpolatedColorArray = [];
+
+	for(var i = 0; i < steps; i++) {
+		interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
+	}
+
 	var r = [];
 	for (let i of interpolatedColorArray) {
 		r.push(`rgb(${i[0]}, ${i[1]}, ${i[2]})`);
 	}
 	
-    return r;
+	return r;
 }
 
 /*

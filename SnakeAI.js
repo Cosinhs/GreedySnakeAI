@@ -1,8 +1,8 @@
 var gridSize = 20;
 var gridMargin = 1;
 var gameCanvas = document.getElementById("game");
-gameCanvas.width = 240;
-gameCanvas.height = 240;
+gameCanvas.width = 200;
+gameCanvas.height = 200;
 var ctx = gameCanvas.getContext('2d');
 
 w = ~~(gameCanvas.width / gridSize);
@@ -234,6 +234,9 @@ var is_eat_safe = function(snake, food) {
 		if (!(virtual_snake[0][0]===food[0] && virtual_snake[0][1]===food[1])) {
 			virtual_snake.pop();
 		} else {
+			if (virtual_snake.length === w*h) {
+				return true;
+			}
 			return follow_tail(virtual_snake)[0];
 		}
 	}
